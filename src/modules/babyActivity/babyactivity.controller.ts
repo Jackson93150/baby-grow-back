@@ -8,7 +8,7 @@ import {
   Body,
 } from '@nestjs/common';
 import { BabyActivityService } from './babyactivity.service';
-import { BabyActivity } from '../../models/babyactivity.entity';
+import { BabyActivity } from '../../models/babyActivity.entity';
 
 @Controller('babyactivity')
 export class BabyActivityController {

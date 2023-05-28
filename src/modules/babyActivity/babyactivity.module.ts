@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { BabyactivityController } from './babyactivity.controller';
-import { BabyactivityService } from './babyactivity.service';
+import { BabyActivityController } from './babyactivity.controller';
+import { BabyActivityService } from './babyactivity.service';
 
 @Module({
-  controllers: [BabyactivityController],
-  providers: [BabyactivityService],
+  controllers: [BabyActivityController],
+  providers: [BabyActivityService],
 })
 export class BabyactivityModule {}

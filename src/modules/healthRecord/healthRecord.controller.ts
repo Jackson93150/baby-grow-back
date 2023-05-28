@@ -7,8 +7,8 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { HealthRecordService } from './healthrecord.service';
-import { HealthRecord } from '../../models/healthrecord.entity';
+import { HealthRecordService } from './healthRecord.service';
+import { HealthRecord } from '../../models/healthRecord.entity';
 
 @Controller('healthrecords')
 export class HealthRecordController {
