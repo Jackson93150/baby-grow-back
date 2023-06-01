@@ -9,6 +9,8 @@ import { GrowthModule } from './modules/growth/growth.module';
 import { HealthRecordModule } from './modules/healthRecord/healthRecord.module';
 import { NoteModule } from './modules/note/note.module';
 import { VaccinationModule } from './modules/vaccination/vaccination.module';
+import { AuthModule } from './modules/jwt/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -24,6 +26,10 @@ import { VaccinationModule } from './modules/vaccination/vaccination.module';
           : false,
       autoLoadEntities: true,
     }),
+    JwtModule.register({
+      secret: process.env.JWT_KEY,
+      signOptions: { expiresIn: '24h' },
+    }),
     UserModule,
     BabyactivityModule,
     BabyprofileModule,
@@ -31,6 +37,7 @@ import { VaccinationModule } from './modules/vaccination/vaccination.module';
     HealthRecordModule,
     NoteModule,
     VaccinationModule,
+    AuthModule,
   ],
   controllers: [AppController],
 })
