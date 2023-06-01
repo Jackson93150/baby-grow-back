@@ -4,11 +4,13 @@ import {
   Post,
   Put,
   Delete,
-  Param,
+  Request,
+  UseGuards,
   Body,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '../../models/user.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UserController {
@@ -19,19 +21,25 @@ export class UserController {
     return this.userService.createUser(user);
   }
 
-  @Get(':id')
-  getUserById(@Param('id') id: number): Promise<User | undefined> {
-    return this.userService.getUserById(id);
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  getUser(@Request() req: any): Promise<User | undefined> {
+    const loggedInUser = req.user;
+    return this.userService.getUserById(loggedInUser.id);
   }
 
-  @Put(':id')
-  updateUser(@Param('id') id: number, @Body() user: User): Promise<User> {
-    user.id = id;
+  @Put('me')
+  @UseGuards(AuthGuard('jwt'))
+  updateUser(@Request() req: any, @Body() user: User): Promise<User> {
+    const loggedInUser = req.user;
+    user.id = loggedInUser.id;
     return this.userService.updateUser(user);
   }
 
-  @Delete(':id')
-  deleteUser(@Param('id') id: number): Promise<void> {
-    return this.userService.deleteUser(id);
+  @Delete('me')
+  @UseGuards(AuthGuard('jwt'))
+  deleteUser(@Request() req: any): Promise<void> {
+    const loggedInUser = req.user;
+    return this.userService.deleteUser(loggedInUser.id);
   }
 }
