@@ -5,6 +5,7 @@ import {
   Request,
   Body,
   UseGuards,
+  Header,
 } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
@@ -22,10 +23,12 @@ export class AuthController {
   }
 
   @Post('login')
-  login(
+  @Header('Authorization', 'Bearer')
+  async login(
     @Body('email') email: string,
     @Body('password') password: string,
   ): Promise<{ accessToken: string }> {
-    return this.authService.login(email, password);
+    const token = await this.authService.login(email, password);
+    return token;
   }
 }

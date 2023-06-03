@@ -5,25 +5,45 @@ import {
   Put,
   Delete,
   Param,
+  Request,
+  UseGuards,
   Body,
 } from '@nestjs/common';
 import { BabyProfileService } from './babyprofile.service';
 import { BabyProfile } from '../../models/babyProfile.entity';
+import { BabyProfileDTO } from 'src/interfaces/babyProfile.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('babyprofiles')
 export class BabyProfileController {
   constructor(private readonly babyProfileService: BabyProfileService) {}
 
   @Post()
-  createBabyProfile(@Body() babyProfile: BabyProfile): Promise<BabyProfile> {
-    return this.babyProfileService.createBabyProfile(babyProfile);
+  @UseGuards(AuthGuard('jwt'))
+  createBabyProfile(
+    @Body() babyProfile: BabyProfileDTO,
+    @Request() req: any,
+  ): Promise<BabyProfile> {
+    const loggedInUser = req.user;
+    return this.babyProfileService.createBabyProfile(babyProfile, loggedInUser);
   }
 
-  @Get(':id')
-  getBabyProfileById(
-    @Param('id') id: number,
+  @Get('user')
+  @UseGuards(AuthGuard('jwt'))
+  getBabyProfileByUserId(
+    @Request() req: any,
   ): Promise<BabyProfile | undefined> {
-    return this.babyProfileService.getBabyProfileById(id);
+    const loggedInUser = req.user;
+    return this.babyProfileService.getBabyProfileByUserId(loggedInUser.id);
+  }
+
+  @Get('users')
+  @UseGuards(AuthGuard('jwt'))
+  getAllBabyProfileByUserId(
+    @Request() req: any,
+  ): Promise<BabyProfile[] | undefined> {
+    const loggedInUser = req.user;
+    return this.babyProfileService.getAllBabyProfileByUserId(loggedInUser.id);
   }
 
   @Put(':id')

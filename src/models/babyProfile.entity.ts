@@ -9,17 +9,23 @@ export class BabyProfile extends BaseEntity {
   first_name: string;
 
   @Column()
-  age: number;
+  height: number;
 
-  @Column({ nullable: true })
-  height: number | null;
-
-  @Column({ nullable: true })
-  weight: number | null;
+  @Column()
+  weight: number;
 
   @Column()
   user_id: number;
 
-  @Column({ nullable: true })
-  gender: string | null;
+  @Column()
+  gender: string;
+
+  @Column()
+  date_of_birth: string;
+
+  @Column()
+  relationship: string;
+
+  @Column()
+  bloodtype: string;
 }
