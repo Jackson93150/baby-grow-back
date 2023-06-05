@@ -11,6 +11,7 @@ import {
 import { UserService } from './user.service';
 import { User } from '../../models/user.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { UserDTO } from 'src/interfaces/user.dto';
 
 @Controller('users')
 export class UserController {
@@ -30,10 +31,9 @@ export class UserController {
 
   @Put('me')
   @UseGuards(AuthGuard('jwt'))
-  updateUser(@Request() req: any, @Body() user: User): Promise<User> {
+  updateUser(@Request() req: any, @Body() user: UserDTO): Promise<User> {
     const loggedInUser = req.user;
-    user.id = loggedInUser.id;
-    return this.userService.updateUser(user);
+    return this.userService.updateUser(user, loggedInUser);
   }
 
   @Delete('me')
