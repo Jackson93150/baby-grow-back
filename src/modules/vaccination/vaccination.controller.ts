@@ -23,10 +23,10 @@ export class VaccinationController {
     return this.vaccinationService.createVaccination(vaccination);
   }
 
-  @Get()
+  @Get(':ids')
   @UseGuards(AuthGuard('jwt'))
   getAllVaccinationByBabyId(
-    @Param() ids: number[],
+    @Param('ids') ids: number[],
   ): Promise<Vaccination[] | undefined> {
     return this.vaccinationService.getAllVaccinationByBabyId(ids);
   }
