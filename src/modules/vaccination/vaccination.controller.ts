@@ -4,39 +4,41 @@ import {
   Post,
   Put,
   Delete,
-  Param,
   Body,
+  UseGuards,
 } from '@nestjs/common';
 import { VaccinationService } from './vaccination.service';
 import { Vaccination } from '../../models/vaccination.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { VaccinationDTO } from 'src/interfaces/vaccination.dto';
 
 @Controller('vaccinations')
 export class VaccinationController {
   constructor(private readonly vaccinationService: VaccinationService) {}
 
   @Post()
-  createVaccination(@Body() vaccination: Vaccination): Promise<Vaccination> {
+  @UseGuards(AuthGuard('jwt'))
+  createVaccination(@Body() vaccination: VaccinationDTO): Promise<Vaccination> {
     return this.vaccinationService.createVaccination(vaccination);
   }
 
-  @Get(':id')
-  getVaccinationById(
-    @Param('id') id: number,
-  ): Promise<Vaccination | undefined> {
-    return this.vaccinationService.getVaccinationById(id);
+  @Get()
+  @UseGuards(AuthGuard('jwt'))
+  getAllVaccinationByBabyId(
+    @Body() ids: number[],
+  ): Promise<Vaccination[] | undefined> {
+    return this.vaccinationService.getAllVaccinationByBabyId(ids);
   }
 
-  @Put(':id')
-  updateVaccination(
-    @Param('id') id: number,
-    @Body() vaccination: Vaccination,
-  ): Promise<Vaccination> {
-    vaccination.id = id;
+  @Put()
+  @UseGuards(AuthGuard('jwt'))
+  updateVaccination(@Body() vaccination: Vaccination): Promise<Vaccination> {
     return this.vaccinationService.updateVaccination(vaccination);
   }
 
-  @Delete(':id')
-  deleteVaccination(@Param('id') id: number): Promise<void> {
+  @Delete()
+  @UseGuards(AuthGuard('jwt'))
+  deleteVaccination(@Body('id') id: number): Promise<void> {
     return this.vaccinationService.deleteVaccination(id);
   }
 }
