@@ -11,6 +11,12 @@ export class Vaccination extends BaseEntity {
   @Column()
   vaccine_name: string;
 
+  @Column()
+  current_dose: number;
+
+  @Column()
+  dose: number;
+
   @Column({ nullable: true })
   date_administered: Date | null;
 
