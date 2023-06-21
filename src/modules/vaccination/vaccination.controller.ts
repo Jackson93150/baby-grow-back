@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import { VaccinationService } from './vaccination.service';
 import { Vaccination } from '../../models/vaccination.entity';
@@ -25,7 +26,7 @@ export class VaccinationController {
   @Get()
   @UseGuards(AuthGuard('jwt'))
   getAllVaccinationByBabyId(
-    @Body() ids: number[],
+    @Param() ids: number[],
   ): Promise<Vaccination[] | undefined> {
     return this.vaccinationService.getAllVaccinationByBabyId(ids);
   }
