@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { BabyWeightDTO } from 'src/interfaces/BabyWeight.dto';
 import { BabyWeight } from 'src/models/BabyWeight.entity';
 
 @Injectable()
@@ -11,7 +10,7 @@ export class BabyWeightService {
     private readonly babyWeightRepository: Repository<BabyWeight>,
   ) {}
 
-  async createBabyWeight(BabyWeight: BabyWeightDTO): Promise<BabyWeight> {
+  async createBabyWeight(BabyWeight: any): Promise<BabyWeight> {
     return this.babyWeightRepository.save(BabyWeight);
   }
 

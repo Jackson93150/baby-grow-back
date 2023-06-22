@@ -11,7 +11,6 @@ import {
 import { BabyWeightService } from './babyWeight.service';
 import { BabyWeight } from '../../models/BabyWeight.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { BabyWeightDTO } from 'src/interfaces/BabyWeight.dto';
 
 @Controller('babyweight')
 export class BabyWeightController {
@@ -19,7 +18,7 @@ export class BabyWeightController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  createBabyWeight(@Body() BabyWeight: BabyWeightDTO): Promise<BabyWeight> {
+  createBabyWeight(@Body() BabyWeight: any): Promise<BabyWeight> {
     return this.babyWeightService.createBabyWeight(BabyWeight);
   }
 
