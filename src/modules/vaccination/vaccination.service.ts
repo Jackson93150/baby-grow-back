@@ -20,9 +20,9 @@ export class VaccinationService {
   }
 
   async getAllVaccinationByBabyId(
-    ids: number[],
+    id: number,
   ): Promise<Vaccination[] | undefined> {
-    return this.vaccinationRepository.find({ where: { baby_id: In(ids) } });
+    return this.vaccinationRepository.find({ where: { baby_id: id } });
   }
 
   async updateVaccination(vaccination: Vaccination): Promise<Vaccination> {
