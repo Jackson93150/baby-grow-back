@@ -37,9 +37,9 @@ export class VaccinationController {
     return this.vaccinationService.updateVaccination(vaccination);
   }
 
-  @Delete()
+  @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  deleteVaccination(@Body('id') id: number): Promise<void> {
+  deleteVaccination(@Param('id') id: number): Promise<void> {
     return this.vaccinationService.deleteVaccination(id);
   }
 }
