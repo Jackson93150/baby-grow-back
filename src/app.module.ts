@@ -9,6 +9,8 @@ import { GrowthModule } from './modules/growth/growth.module';
 import { HealthRecordModule } from './modules/healthRecord/healthRecord.module';
 import { NoteModule } from './modules/note/note.module';
 import { VaccinationModule } from './modules/vaccination/vaccination.module';
+import { BabyHeightModule } from './modules/babyHeight/babyHeight.module';
+import { BabyWeightModule } from './modules/babyWeight/babyWeight.module';
 import { AuthModule } from './modules/jwt/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -37,6 +39,8 @@ import { JwtModule } from '@nestjs/jwt';
     HealthRecordModule,
     NoteModule,
     VaccinationModule,
+    BabyHeightModule,
+    BabyWeightModule,
     AuthModule,
   ],
   controllers: [AppController],
